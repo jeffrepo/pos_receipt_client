@@ -1,0 +1,23 @@
+<templates id="template" xml:space="preserve">
+  <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+	  <xpath expr="//t[@t-if='receipt.cashier']" position="after">
+              <t t-if="receipt.client">
+                    <div class="cashier">
+                        <div>--------------------------------</div>
+                        <div>Cliente: <t t-esc="receipt.client.name" /></div>
+                    </div>
+              </t>
+    </xpath>
+    <xpath expr="//t[@t-if='line.pack_lot_lines']" position="before">
+	    <div class="pos-receipt-left-padding">
+		    <t t-set='nota' t-value="props.order.orderlines.find(element => element.id == line.id).note"/>
+		    <t t-if="nota">
+                        <div>--------------------------------</div>
+			<strong><t t-esc="nota" /></strong>
+                        <div>--------------------------------</div>
+		    </t>
+	    </div>
+    </xpath>
+  
+  </t>
+</templates>
